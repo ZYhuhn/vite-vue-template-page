@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2023-09-07 10:07:42
- * @LastEditTime: 2023-09-18 11:19:56
+ * @LastEditTime: 2024-03-29 18:04:33
  */
 import type { RouteRecordRaw } from 'vue-router'
 export { basicRoutes } from './basic'
@@ -10,6 +10,7 @@ export { basicRoutes } from './basic'
 const modules: Recordable<{ default: RouteRecordRaw }> = import.meta.glob(
   './modules/*.ts',
   {
+    // glob 默认是懒加载的，通过动态导入实现，并会在构建时分离为独立的 chunk, 设置 eager 直接引入所有的模块
     eager: true
   }
 )

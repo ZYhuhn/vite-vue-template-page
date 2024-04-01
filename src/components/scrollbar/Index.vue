@@ -41,7 +41,7 @@ import {
 } from 'vue'
 import { useRoute } from 'vue-router'
 import Bar from './bar'
-import { RESET_SCROLLBAR } from '@/enums/appEnum'
+import { RESET_SCROLLBAR } from '@/enums'
 
 export default defineComponent({
   name: 'CompScrollbar',

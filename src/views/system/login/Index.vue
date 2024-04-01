@@ -1,15 +1,15 @@
 <!--
  * @Description: 登录页
  * @Date: 2023-09-06 18:11:26
- * @LastEditTime: 2024-02-21 17:39:18
+ * @LastEditTime: 2024-04-01 10:54:05
 -->
 <script setup lang="ts">
 import { ref, reactive, computed, UnwrapRef } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAppConfigStore } from '@/store/modules/config'
 import { useSwitchPage, useI18n } from '@/hooks'
-import { getAppLocalConfig, setAppLocalConfig } from '@/utils/cache'
 import { LocaleEnum } from '@/enums/appEnum'
+import { loadLanguageAsync } from '@/lang'
 
 interface FormState {
   username: string
@@ -49,13 +49,13 @@ const appConfigStore = useAppConfigStore()
 const localeState = computed(() => appConfigStore.locale)
 const isZH_CN = computed(() => appConfigStore.locale === LocaleEnum.ZH_CN)
 
-const toggleLocale = () => {
+const toggleLocale = async () => {
+  const newLocale = isZH_CN.value ? LocaleEnum.EN_US : LocaleEnum.ZH_CN
   // 更新 store
-  appConfigStore.setLocale(isZH_CN.value ? LocaleEnum.EN_US : LocaleEnum.ZH_CN)
+  appConfigStore.setLocale(newLocale)
+  loadLanguageAsync(newLocale)
   // 更新 i18n 语言
   locale.value = localeState.value
-  // 更新 localStorage
-  setAppLocalConfig({ ...getAppLocalConfig(), locale: localeState.value })
 }
 
 const toggleThemeMode = () => {
@@ -86,11 +86,6 @@ const toolbarData = reactive([
       <section :class="`${prefixCls}__right-wrap`">
         <div :class="`${prefixCls}__right-content`">
           <div :class="`${prefixCls}__head`">
-            <!-- <img
-              src="/logo.svg"
-              :class="`${prefixCls}__logo`"
-              alt="system logo"
-            /> -->
             {{ $t('actions.login') }}
           </div>
           <span :class="`${prefixCls}__title`">
@@ -107,8 +102,9 @@ const toolbarData = reactive([
                 v-model:value="formState.username"
                 v-trim
                 size="large"
-                :class="`${prefixCls}__form-input`"
+                autocomplete="off"
                 placeholder="请输入 test"
+                :class="`${prefixCls}__form-input`"
                 @change="removeLoginFailed"
               />
             </a-form-item>
@@ -116,9 +112,9 @@ const toolbarData = reactive([
               <a-input-password
                 v-model:value="formState.password"
                 size="large"
-                :class="`${prefixCls}__form-input`"
                 placeholder="请输入 123456"
-                autocomplete
+                autocomplete="off"
+                :class="`${prefixCls}__form-input`"
                 @change="removeLoginFailed"
               />
             </a-form-item>
@@ -214,16 +210,6 @@ const toolbarData = reactive([
     border-bottom: 1px solid #f0f0f1;
   }
 
-  &__logo {
-    height: 2rem;
-    margin-right: 1rem;
-    will-change: filter;
-  }
-
-  &__logo:hover {
-    filter: drop-shadow(0 0 2rem #78b4fe);
-  }
-
   &__title {
     color: @gray-8;
     font-size: 1rem;
@@ -297,7 +283,7 @@ const toolbarData = reactive([
   }
 
   // 浏览器自动填入
-  :deep input:-webkit-autofill {
+  :deep(input:-webkit-autofill) {
     -webkit-text-fill-color: #595958 !important;
     background-color: #fff;
     background-image: none;
