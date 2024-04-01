@@ -3,7 +3,7 @@ import App from './App.vue'
 import setupRoute from './router'
 import setupStore from './store'
 import setupComponent from '@/utils/setupComponents'
-import setupI18n from './lang'
+import setupI18n from './locales'
 import setupGlobDirectives from '@/directives'
 
 import '@/styles/index.less'

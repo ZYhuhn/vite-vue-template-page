@@ -1,7 +1,7 @@
 <!--
  * @Description: 登录页
  * @Date: 2023-09-06 18:11:26
- * @LastEditTime: 2024-04-01 10:54:05
+ * @LastEditTime: 2024-04-01 11:03:18
 -->
 <script setup lang="ts">
 import { ref, reactive, computed, UnwrapRef } from 'vue'
@@ -9,7 +9,7 @@ import { useRoute } from 'vue-router'
 import { useAppConfigStore } from '@/store/modules/config'
 import { useSwitchPage, useI18n } from '@/hooks'
 import { LocaleEnum } from '@/enums/appEnum'
-import { loadLanguageAsync } from '@/lang'
+import { loadLanguageAsync } from '@/locales'
 
 interface FormState {
   username: string
