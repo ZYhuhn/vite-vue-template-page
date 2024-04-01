@@ -1,7 +1,7 @@
 <!--
  * @Description: 顶部导航
  * @Date: 2023-09-18 09:44:44
- * @LastEditTime: 2023-09-18 14:58:29
+ * @LastEditTime: 2024-04-01 11:42:45
 -->
 <template>
   <section :class="prefixCls">
@@ -44,7 +44,7 @@ interface MenuClickOption {
 
 const prefixCls = ref('menu')
 const switchPage = useSwitchPage()
-const { reload } = useReload()
+const { reloadNavPage } = useReload()
 const route = useRoute()
 
 const routes = router.getRoutes()
@@ -94,7 +94,7 @@ async function handleMenuClick(option: MenuClickOption) {
   const rootRoute = route.matched.find((item) => item.name === option.key)
   if (rootRoute && [rootRoute.redirect, rootRoute.path].includes(route.path)) {
     // 刷新当前目录
-    reload()
+    reloadNavPage()
   }
 
   switchPage({ name: option.key })
