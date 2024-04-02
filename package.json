@@ -34,6 +34,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
+    "@nabla/vite-plugin-eslint": "^2.0.2",
     "@plugin-web-update-notification/vite": "^1.6.4",
     "@types/node": "^18.11.12",
     "@typescript-eslint/eslint-plugin": "^5.47.0",

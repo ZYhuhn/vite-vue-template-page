@@ -2,6 +2,7 @@ import type { PluginOption } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import viteCompression from 'vite-plugin-compression'
+import eslintPlugin from '@nabla/vite-plugin-eslint'
 
 import configHtmlPlugin from './html'
 import antDesignVueResolverPlugin from './antDesignVueResolver'
@@ -13,24 +14,26 @@ export default function createVitePlugins(env: ViteEnv, isBuild: boolean) {
     vue(),
     vueJsx(),
     configHtmlPlugin(env), // vite-plugin-html
-    antDesignVueResolverPlugin() // 自动按需引入组件
+    configVisualizerConfig(), // rollup-plugin-visualizer
+    antDesignVueResolverPlugin(), // unplugin-vue-components 自动按需引入组件
+    eslintPlugin() // 开发过程中 lint
   ]
 
-  // rollup-plugin-visualizer
-  vitePlugins.push(configVisualizerConfig())
+  if (isBuild) {
+    // @plugin-web-update-notification/vite
+    vitePlugins.push(configWebUpdateNotificationPlugin())
 
-  // @plugin-web-update-notification/vite
-  isBuild && vitePlugins.push(configWebUpdateNotificationPlugin())
-
-  //  vite-plugin-compression gzip 压缩 生产环境生成 .gz 文件
-  isBuild &&
-    viteCompression({
-      verbose: true,
-      disable: false,
-      threshold: 10240,
-      algorithm: 'gzip',
-      ext: '.gz'
-    })
+    //  vite-plugin-compression gzip 压缩 生产环境生成 .gz 文件
+    vitePlugins.push(
+      viteCompression({
+        verbose: true,
+        disable: false,
+        threshold: 10240,
+        algorithm: 'gzip',
+        ext: '.gz'
+      })
+    )
+  }
 
   return vitePlugins
 }
