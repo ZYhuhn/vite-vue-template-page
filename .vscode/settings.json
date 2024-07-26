@@ -1,0 +1,10 @@
+{
+  "explorer.fileNesting.enabled": true, // 控制文件嵌套启用
+  "explorer.fileNesting.expand": false, // 控制嵌套的文件是否被默认展开
+  "explorer.fileNesting.patterns": {
+    "*.env": ".env.*",
+    "package.json": "pnpm-lock.yaml,pnpm-workspace.yaml,.gitattributes,.gitignore,.gitpod.yml,CNAME,.npmrc,.browserslistrc",
+    ".eslintrc.js": ".eslintignore,.prettierignore,.stylelintignore,.commitlintrc.*,.prettierrc.*,.stylelintrc.*,.eslintrc-auto-import.json,.editorconfig,.commitlint.cjs",
+    "vite.config.ts": "tsconfig.*.json,uno.config.ts,tsconfig.json"
+  }
+}
