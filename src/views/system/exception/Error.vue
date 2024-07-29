@@ -1,7 +1,7 @@
 <!--
  * @Description: 系统异常页面 403、404 等
  * @Date: 2023-09-06 17:09:25
- * @LastEditTime: 2023-09-11 14:31:57
+ * @LastEditTime: 2024-07-29 15:25:22
 -->
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
@@ -14,13 +14,12 @@ export default defineComponent({
     const prefixCls = ref('error')
     const switchPage = useSwitchPage()
 
-    function randomNum(minNum: number, maxNum: number) {
-      return parseInt(`${Math.random() * (maxNum - minNum + 1) + minNum}`, 10)
-    }
-
-    const imgIndex = ref(randomNum(0, 10))
+    const imgIndex = ref(0)
     function setImgIndex() {
-      imgIndex.value = randomNum(0, 10)
+      imgIndex.value += 1
+      if (imgIndex.value > 14) {
+        imgIndex.value = 0
+      }
     }
 
     return {
@@ -38,7 +37,7 @@ export default defineComponent({
 
 <template>
   <section :class="[prefixCls]">
-    <div>
+    <div :class="`${prefixCls}__content-wrap`">
       <img
         :src="getImageUrl(`404/404_${imgIndex}.svg`)"
         :data-img-index="imgIndex"
@@ -48,8 +47,8 @@ export default defineComponent({
       <div :class="`${prefixCls}__msg`">
         <span>抱歉，您访问的页面不存在！</span>
         <br />
-        <span>访问链接可能错误，或者该页面已被删除。</span>
-        <a-button type="link" @click="backHome">前往xx模块</a-button>
+        <span>访问链接可能错误，或者无权限访问该页面。</span>
+        <a-button type="link" @click="backHome">返回首页</a-button>
       </div>
     </div>
   </section>
@@ -64,7 +63,14 @@ export default defineComponent({
   justify-content: center;
   height: 100%;
 
+  &__content-wrap {
+    width: 30rem;
+    height: 30rem;
+    transform: translateY(-15%);
+  }
+
   &__msg {
+    max-width: 408px;
     color: @gray-7;
     line-height: 1.5rem;
     text-align: center;
