@@ -5,7 +5,10 @@
         <div :class="`${prefixCls}__content`">
           <section :class="`${prefixCls}__left-wrap`">
             <div :class="`${prefixCls}__left-top`">
-              <img src="@/assets/illustration/flat/Work-from-home.svg" />
+              <img
+                :src="getImageUrl(`illustration/flat/${imgList[imgIndex]}`)"
+                @click="setImgIndex"
+              />
             </div>
             <div :class="`${prefixCls}__left-bottom`">
               欢迎使用！
@@ -87,6 +90,7 @@
 import { ref, reactive, UnwrapRef } from 'vue'
 import { useRoute } from 'vue-router'
 import { useSwitchPage, useI18n } from '@/hooks'
+import { getImageUrl } from '@/utils/util'
 
 interface FormState {
   username: string
@@ -98,7 +102,60 @@ const switchPage = useSwitchPage()
 const { $t } = useI18n()
 const route = useRoute()
 
-const imgList = ref(['Work-from-home', ''])
+const imgList = ref([
+  'agile_collaborative_work_team_office.svg',
+  'Analytics.svg',
+  'Analytics1.svg',
+  'Analytics2.svg',
+  'Business strategy.svg',
+  'Calendar.svg',
+  'cartoon-code-review.svg',
+  'Chatbot.svg',
+  'Checking-Boxes.svg',
+  'Coder.svg',
+  'Coding.svg',
+  'Collaborate.svg',
+  'Community.svg',
+  'Contact-us.svg',
+  'Customer-support.svg',
+  'Data-report.svg',
+  'Data-security.svg',
+  'Designer.svg',
+  'Designer1.svg',
+  'Email.svg',
+  'FAQ.svg',
+  'Finance.svg',
+  'Folder.svg',
+  'Form.svg',
+  'Headache.svg',
+  'Idea.svg',
+  'Launch.svg',
+  'Learning-Chinese.svg',
+  'Learning-English.svg',
+  'Living-Room-color.svg',
+  'Login.svg',
+  'Meeting.svg',
+  'Meeting1.svg',
+  'Office-Party-color.svg',
+  'Online-reviews.svg',
+  'Pair-programming.svg',
+  'Podcast.svg',
+  'Presentation.svg',
+  'Presentation1.svg',
+  'Programmer.svg',
+  'Thank-You-color.svg',
+  'Tulips-color.svg',
+  'Visual-data.svg',
+  'Welcome.svg',
+  'Work-from-home.svg'
+])
+const imgIndex = ref(0)
+function setImgIndex() {
+  imgIndex.value += 1
+  if (imgIndex.value >= imgList.value.length) {
+    imgIndex.value = 0
+  }
+}
 
 const errorMsg = ref('')
 const formState: UnwrapRef<FormState> = reactive({
@@ -164,7 +221,7 @@ const handleFinish = async () => {
     width: 50%;
     min-width: 400px;
     height: 100%;
-    background: repeat url('@/assets/pattern/ttten.svg');
+    background: repeat url('@/assets/pattern/pattern_1.svg');
     background-position: left bottom;
     background-size: 100%;
     background-origin: content-box;
@@ -172,9 +229,9 @@ const handleFinish = async () => {
 
   &__left-top {
     display: flex;
-    flex: 1;
     align-items: center;
     justify-content: center;
+    height: 70%;
     padding: 50px;
 
     img {
