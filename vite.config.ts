@@ -1,7 +1,6 @@
 import { defineConfig, loadEnv } from 'vite'
 import createVitePlugins from './build/plugin'
 import { wrapperEnv } from './build/utils'
-import { OUTPUT_DIR } from './build/constant'
 import type { UserConfig, ConfigEnv } from 'vite'
 
 // 指定解析路径
@@ -63,7 +62,6 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
     },
     // 生产环境打包配置
     build: {
-      outDir: OUTPUT_DIR,
       minify: 'terser',
       terserOptions: {
         compress: {

@@ -1,10 +1,9 @@
 /*
  * @Description: 项目构建相关工具方法
  * @Date: 2023-09-04 16:37:22
- * @LastEditTime: 2023-09-08 11:01:34
  */
 /**
- * @description: loadEnv 获取环境变量都为 string. 此函数保留 boolean、number 等原本类型
+ * @description: loadEnv 获取环境变量都为 string。此函数保留 boolean、number 等原本类型
  * @param {Recordable} envConf
  */
 export function wrapperEnv(envConf: Recordable): ViteEnv {
@@ -22,6 +21,7 @@ export function wrapperEnv(envConf: Recordable): ViteEnv {
     if (envName === 'VITE_PORT') {
       realName = Number(realName)
     }
+
     if (envName === 'VITE_PROXY' && realName) {
       try {
         realName = JSON.parse(realName.replace(/'/g, '"'))
@@ -29,12 +29,15 @@ export function wrapperEnv(envConf: Recordable): ViteEnv {
         realName = ''
       }
     }
+
     ret[envName] = realName
+
     if (typeof realName === 'string') {
       process.env[envName] = realName
     } else if (typeof realName === 'object') {
       process.env[envName] = JSON.stringify(realName)
     }
   }
+
   return ret
 }

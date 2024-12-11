@@ -8,13 +8,13 @@
     "bootstrap": "pnpm install",
     "serve": "npm run dev",
     "dev": "vite",
-    "build": "vue-tsc && vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "deplay": "pnpm build && gh-pages -d dist",
     "gh-pages": "gh-pages -d dist",
     "report": "cross-env REPORT=true npm run build",
     "preview": "vite preview",
     "type:check": "vue-tsc --noEmit --skipLibCheck",
-    "lint:eslint": "eslint --cache --fix --max-warnings 20  \"{src,mock}/**/*.{vue,ts,tsx}\"  --cache-location node_modules/.cache/eslint/",
+    "lint:eslint": "eslint --cache --fix --max-warnings 0 \"{src,mock}/**/*.{vue,ts,tsx}\"  --cache-location node_modules/.cache/eslint/",
     "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint:stylelint": "stylelint --cache --fix \"**/*.{vue,less,postcss,css,scss}\" --cache-location node_modules/.cache/stylelint/",
     "lint:lint-staged": "lint-staged",
@@ -80,7 +80,8 @@
     "*.vue": [
       "pnpm lint:eslint",
       "pnpm lint:stylelint",
-      "pnpm lint:prettier"
+      "pnpm lint:prettier",
+      "pnpm type:check"
     ],
     "*.{scss,less,styl,html}": [
       "pnpm lint:stylelint",

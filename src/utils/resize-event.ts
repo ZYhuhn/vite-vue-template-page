@@ -8,9 +8,6 @@ export type ResizableElement = CustomizedHTMLElement<{
   __ro__: ResizeObserver
 }>
 
-// 如果不是页面应用,就没必要监听窗口变化
-const isServer = typeof window === 'undefined'
-
 // 当监听到元素 Size 变化后,执行的方法
 const resizeHandler = function (entries: ResizeObserverEntry[]) {
   // 循环匹配的元素
@@ -31,8 +28,7 @@ export const addResizeListener = function (
   element: ResizableElement,
   fn: (...args: unknown[]) => unknown
 ): void {
-  // 如果不是页面应用就返回
-  if (isServer) return
+  if (!element) return
   // 如果元素的__resizeListeners__字段不存在,就说明还没有注册 resize-observer-polyfill
   if (!element.__resizeListeners__) {
     // 设置该字段
