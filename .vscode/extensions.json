@@ -5,7 +5,7 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "stylelint.vscode-stylelint",
-    "sonarsource.sonarlint-vscode",
+    "editorconfig.editorconfig",
     "mikestead.dotenv",
     // "lokalise.i18n-ally",
     "arkipedia.i18n-ally-pinyin"
