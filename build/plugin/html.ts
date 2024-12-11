@@ -9,7 +9,7 @@ export default function configHtmlPlugin(env: ViteEnv) {
     minify: true,
     inject: {
       data: {
-        title: env.VITE_GLOB_APP_TITLE
+        title: env.VITE_APP_TITLE
       }
     }
   })
