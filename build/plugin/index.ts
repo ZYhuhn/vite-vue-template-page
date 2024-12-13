@@ -7,16 +7,16 @@ import eslintPlugin from '@nabla/vite-plugin-eslint'
 import configHtmlPlugin from './html'
 import antDesignVueResolverPlugin from './antDesignVueResolver'
 import configWebUpdateNotificationPlugin from './webUpdate'
-import configVisualizerConfig from './visualizer'
+import configVisualizerPlugin from './visualizer'
 
 export default function createVitePlugins(env: ViteEnv, isBuild: boolean) {
   const vitePlugins: (PluginOption | PluginOption[])[] = [
     vue(),
     vueJsx(),
     configHtmlPlugin(env), // vite-plugin-html
-    configVisualizerConfig(), // rollup-plugin-visualizer
+    configVisualizerPlugin(), // rollup-plugin-visualizer
     antDesignVueResolverPlugin(), // unplugin-vue-components 自动按需引入组件
-    eslintPlugin() // 开发过程中 lint
+    eslintPlugin() // 开发过程中在控制台实时输出 lint 信息
   ]
 
   if (isBuild) {

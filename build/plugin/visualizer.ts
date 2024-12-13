@@ -3,7 +3,7 @@
  */
 import visualizer from 'rollup-plugin-visualizer'
 
-export default function configVisualizerConfig() {
+export default function configVisualizerPlugin() {
   if (isReportMode()) {
     return visualizer({
       filename: './node_modules/.cache/visualizer/stats.html',
